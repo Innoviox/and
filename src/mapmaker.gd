@@ -1,14 +1,16 @@
 extends Node2D
 
-var tile = preload("res://scenes/tile.tscn")
 var playerScene = preload("res://scenes/player.tscn")
-var item = preload("res://scenes/item.tscn")
+var hudScene = preload("res://scenes/hud.tscn")
 
 var map = "res://maps/map1.txt"
 
 var player: Player
+var hud: Hud
 var tiles = []
 var items = []
+
+var time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,20 +23,25 @@ func _ready() -> void:
 			var block = content[y][x]
 			
 			if block == "K":
-				var tileNode = make_tile(" ", x, y)
+				var tileNode = Util.make_tile(" ", x, y)
+				add_child(tileNode)
 				row.append(tileNode)
 				
-				var itemNode = make_item(block, x, y)
+				var itemNode = Util.make_item(block, x, y)
+				add_child(itemNode)
 				items.append(itemNode)
 				
 			elif block == "L":
-				var tileNode = make_tile("C", x, y)
+				var tileNode = Util.make_tile("C", x, y)
+				add_child(tileNode)
 				row.append(tileNode)
 				
-				var itemNode = make_item(block, x, y)
+				var itemNode = Util.make_item(block, x, y)
+				add_child(itemNode)
 				items.append(itemNode)
 			else:
-				var tileNode = make_tile(block, x, y)
+				var tileNode = Util.make_tile(block, x, y)
+				add_child(tileNode)
 				row.append(tileNode)
 			
 			if block == "S":
@@ -44,24 +51,11 @@ func _ready() -> void:
 				
 				add_child(player)
 		tiles.append(row)
+		
+	hud = hudScene.instantiate()
+	add_child(hud)
 
-func make_tile(block: String, x: int, y: int) -> Tile:
-	var tileNode = tile.instantiate()
-	tileNode.img = block
-	tileNode.x = x
-	tileNode.y = y
-	
-	add_child(tileNode)
-	return tileNode
-	
-func make_item(block: String, x: int, y: int) -> Item:
-	var itemNode = item.instantiate()
-	itemNode.img = block
-	itemNode.x = x 
-	itemNode.y = y 
-	
-	add_child(itemNode)
-	return itemNode
+
 
 func item_at(x: int, y: int) -> Item:
 	for item in items:
@@ -70,10 +64,11 @@ func item_at(x: int, y: int) -> Item:
 	return null
 
 func item_check():
-	item = item_at(player.x, player.y)
+	var item = item_at(player.x, player.y)
 	if item != null:
 		if item.collectible():
 			player.items.append(item.img)
+			hud.set_items(player)
 			remove_child(item)
 
 func move_player(dir: Vector2) -> bool:
@@ -81,7 +76,7 @@ func move_player(dir: Vector2) -> bool:
 	var newY = player.y + dir.y
 	
 	if newY < tiles.size() and newX < tiles[newY].size():
-		item = item_at(newX, newY)
+		var item = item_at(newX, newY)
 		if tiles[newY][newX].walkable(player) or (item != null and item.walkable(player)):
 			player.x += dir.x
 			player.y += dir.y
@@ -90,16 +85,23 @@ func move_player(dir: Vector2) -> bool:
 			return true
 		return false
 	return false
-
-func _input(event):
+	
+func action(event) -> bool:
 	if event.is_action_pressed("right"):
-		move_player(Vector2(1, 0))
+		return move_player(Vector2(1, 0))
 	elif event.is_action_pressed("left"):
-		move_player(Vector2(-1, 0))
+		return move_player(Vector2(-1, 0))
 	elif event.is_action_pressed("up"):
-		move_player(Vector2(0, -1))
+		return move_player(Vector2(0, -1))
 	elif event.is_action_pressed("down"):
-		move_player(Vector2(0, 1))
+		return move_player(Vector2(0, 1))
+	return false 
+	
+func _input(event):
+	if action(event):
+		time += 1
+		hud.write_time(time)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

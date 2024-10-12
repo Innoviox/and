@@ -21,7 +21,7 @@ func _ready() -> void:
 	var image = Image.load_from_file(file)
 	var texture = ImageTexture.create_from_image(image)
 	$Sprite2D.texture = texture
-	$Sprite2D.scale = Vector2(1.0, 1.0)
+	$Sprite2D.scale = Vector2(1.2, 1.2)
 	
 	position.x = X
 	position.y = Y

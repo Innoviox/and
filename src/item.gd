@@ -1,12 +1,16 @@
 extends ImageNode
-class_name Tile
+class_name Item 
 
-func walkable(player: Player) -> bool:
-	if img == " " or img == "S":
-		return true
-	if img == "L" and player.items.has("K"):
-		return true
-	return false
+func collectible():
+	return img == "K"
+	
+func walkable(player: Player):
+	if img == "L":
+		if player.items.has("K"):
+			return true
+		return false
+	return true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

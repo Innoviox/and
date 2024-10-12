@@ -6,3 +6,5 @@
 script = ExtResource("1_e1nat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]

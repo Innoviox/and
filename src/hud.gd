@@ -7,7 +7,6 @@ func write_time(time: int):
 
 func set_items(player: Player):
 	for y in player.items.size():
-		print("got item", player.items[y])
 		var item = Util.make_item(player.items[y], 0, y)
 		$CanvasLayer.add_child(item)
 

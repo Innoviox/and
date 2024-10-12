@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://diy6g58mn2und"]
+[gd_scene load_steps=3 format=3 uid="uid://diy6g58mn2und"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_e1nat"]
+[ext_resource type="Texture2D" uid="uid://dyojwqvfnw7pb" path="res://img/light.webp" id="2_hiplm"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_e1nat")
@@ -8,3 +9,9 @@ script = ExtResource("1_e1nat")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+range_item_cull_mask = 3
+shadow_enabled = true
+texture = ExtResource("2_hiplm")
+texture_scale = 5.7

@@ -55,8 +55,6 @@ func _ready() -> void:
 	hud = hudScene.instantiate()
 	add_child(hud)
 
-
-
 func item_at(x: int, y: int) -> Item:
 	for item in items:
 		if item.x == x and item.y == y:

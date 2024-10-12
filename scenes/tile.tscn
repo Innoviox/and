@@ -10,3 +10,7 @@ script = ExtResource("1_rqvai")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(5, 5)
 texture = SubResource("ImageTexture_isoq1")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(40, 40)
+sdf_collision = false

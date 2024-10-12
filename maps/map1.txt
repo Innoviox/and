@@ -2,4 +2,19 @@ CCCCCCCCCCCCCCCCCCCC
 C       C          C
 C       L  S   K   C
 C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
+C       C          C
 CCCCCCCCCCCCCCCCCCCC

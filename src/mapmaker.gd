@@ -1,6 +1,7 @@
 extends Node2D
 
 var tile = preload("res://scenes/tile.tscn")
+var player = preload("res://scenes/player.tscn")
 
 var map = "res://maps/map1.txt"
 
@@ -11,12 +12,19 @@ func _ready() -> void:
 	
 	for y in content.size():
 		for x in content[y].length():
+			var block = content[y][x]
+			
 			var tileNode = tile.instantiate()
-			tileNode.tile = content[y][x]
-			tileNode.X = 50 + x * 100
-			tileNode.Y = 50 + y * 100
+			tileNode.tile = block
+			tileNode.x = x
+			tileNode.y = y
 			
 			add_child(tileNode)
+			
+			if block == "S":
+				var playerNode = player.instantiate()
+				
+				
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

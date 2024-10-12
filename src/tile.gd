@@ -1,8 +1,8 @@
 extends Node2D
 
 var tile: String
-var X: int
-var Y: int
+var x: int
+var y: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,10 +21,10 @@ func _ready() -> void:
 	var image = Image.load_from_file(file)
 	var texture = ImageTexture.create_from_image(image)
 	$Sprite2D.texture = texture
-	$Sprite2D.scale = Vector2(1.2, 1.2)
+	$Sprite2D.scale = Vector2(1.42, 1.42)
 	
-	position.x = X
-	position.y = Y
+	
+	position = Util.position(x, y)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

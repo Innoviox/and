@@ -7,11 +7,18 @@
 script = ExtResource("1_e1nat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-range_item_cull_mask = 3
+range_item_cull_mask = 2
 shadow_enabled = true
+shadow_item_cull_mask = 2
 texture = ExtResource("2_hiplm")
-texture_scale = 5.7
+texture_scale = 3.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+range_item_cull_mask = 4
+texture = ExtResource("2_hiplm")

@@ -3,7 +3,7 @@ extends Node2D
 var playerScene = preload("res://scenes/player.tscn")
 var hudScene = preload("res://scenes/hud.tscn")
 
-var map = "res://maps/map1.txt"
+var map = "res://maps/map2.txt"
 
 var player: Player
 var hud: Hud
@@ -54,6 +54,7 @@ func _ready() -> void:
 		
 	hud = hudScene.instantiate()
 	add_child(hud)
+	update_lights()
 
 func item_at(x: int, y: int) -> Item:
 	for item in items:
@@ -80,9 +81,27 @@ func move_player(dir: Vector2) -> bool:
 			player.y += dir.y
 			
 			item_check()
+			update_lights()
 			return true
 		return false
 	return false
+	
+func update_lights():
+	for y in tiles.size():
+		for x in tiles[y].size():
+			var dx = abs(x - player.x)
+			var dy = abs(y - player.y)
+			if dx > 4 or dy > 4 or (dx + dy) > 8:
+				tiles[y][x].slm(1)
+			else:
+				if tiles[y][x].seethrough(player):
+					tiles[y][x].slm(2)
+				else:
+					tiles[y][x].slm(3)
+					tiles[y][x].add_occluders(player, tiles)
+				#tiles[y][x].slm(2)
+				#if !tiles[y][x].seethrough(player):
+					#tiles[y][x].add_occluders(player, tiles)
 	
 func action(event) -> bool:
 	if event.is_action_pressed("right"):

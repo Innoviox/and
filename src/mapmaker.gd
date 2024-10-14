@@ -119,10 +119,8 @@ func update_lights():
 		var tile = tiles[point[1]][point[0]]
 		tile.slm(2)
 		if tile.seethrough(player):
-			queue.append([point[0] + 1, point[1]])
-			queue.append([point[0] - 1, point[1]])
-			queue.append([point[0], point[1] + 1])
-			queue.append([point[0], point[1] - 1])
+			for i in [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]]:
+				queue.append([point[0] + i[0], point[1] + i[1]])
 		
 		
 		

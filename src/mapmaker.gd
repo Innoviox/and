@@ -3,7 +3,7 @@ extends Node2D
 var playerScene = preload("res://scenes/player.tscn")
 var hudScene = preload("res://scenes/hud.tscn")
 
-var map = "res://maps/map2.txt"
+var map = "res://maps/map1.txt"
 
 var player: Player
 var hud: Hud
@@ -89,20 +89,44 @@ func move_player(dir: Vector2) -> bool:
 func update_lights():
 	for y in tiles.size():
 		for x in tiles[y].size():
-			var dx = abs(x - player.x)
-			var dy = abs(y - player.y)
-			if dx > 4 or dy > 4 or (dx + dy) > 8:
-				tiles[y][x].slm(1)
-			else:
-				if tiles[y][x].seethrough(player):
-					tiles[y][x].slm(2)
-				else:
-					tiles[y][x].slm(3)
-					tiles[y][x].add_occluders(player, tiles)
-				#tiles[y][x].slm(2)
-				#if !tiles[y][x].seethrough(player):
+			#var dx = abs(x - player.x)
+			#var dy = abs(y - player.y)
+			#if dx > 4 or dy > 4 or (dx + dy) > 8:
+			tiles[y][x].slm(1)
+			#else:
+				#if tiles[y][x].seethrough(player):
+#					
+					#tiles[y][x].slm(2)
+				#else:
+					#tiles[y][x].slm(3)
 					#tiles[y][x].add_occluders(player, tiles)
 	
+	var seen = []
+	var queue = [[player.x, player.y]]
+	while queue.size() > 0:
+		var point = queue.pop_front()
+		
+		if seen.has(point):
+			continue
+		
+		var dx = abs(point[0] - player.x)
+		var dy = abs(point[1] - player.y)
+		if dx > 4 or dy > 4 or (dx + dy) > 8 or point[0] < 0 or point[0] >= tiles[0].size() or point[1] < 0 or point[1] >= tiles.size():
+			continue
+			
+		seen.append(point)
+		
+		var tile = tiles[point[1]][point[0]]
+		tile.slm(2)
+		if tile.seethrough(player):
+			queue.append([point[0] + 1, point[1]])
+			queue.append([point[0] - 1, point[1]])
+			queue.append([point[0], point[1] + 1])
+			queue.append([point[0], point[1] - 1])
+		
+		
+		
+
 func action(event) -> bool:
 	if event.is_action_pressed("right"):
 		return move_player(Vector2(1, 0))

@@ -16,10 +16,10 @@ func add_occluders(player: Player, tiles):
 	
 	var points = [bl, tl, tr, br]
 	#
-	#var tile_left = x - 1 >= 0 and !tiles[y][x - 1].seethrough(player)
-	#var tile_right = x + 1 < tiles[y].size() and !tiles[y][x + 1].seethrough(player)
-	#var tile_above = y - 1 >= 0 and !tiles[y - 1][x].seethrough(player)
-	#var tile_below = y + 1 < tiles.size() and !tiles[y + 1][x].seethrough(player)
+	#var tile_left = false # x - 1 >= 0 and !tiles[y][x - 1].seethrough(player)
+	#var tile_right = false # x + 1 < tiles[y].size() and !tiles[y][x + 1].seethrough(player)
+	#var tile_above = false # y - 1 >= 0 and !tiles[y - 1][x].seethrough(player)
+	#var tile_below = false # y + 1 < tiles.size() and !tiles[y + 1][x].seethrough(player)
 	#
 	#var left = x < player.x
 	#var below = y > player.y
@@ -36,6 +36,8 @@ func add_occluders(player: Player, tiles):
 		#elif y == player.y:
 			#if tile_left:
 				#points = []
+			#elif !tile_below:
+				#points = [br, bl, tl]
 			#else:
 				#points = [bl, tl]
 		#else:
@@ -64,7 +66,7 @@ func add_occluders(player: Player, tiles):
 			
 	var occluder_polygon = OccluderPolygon2D.new()
 	occluder_polygon.set_polygon(PackedVector2Array(points))
-	occluder_polygon.closed = false
+	occluder_polygon.closed = true
 	$LightOccluder2D.set_occluder_polygon(occluder_polygon)
 	#$LightOccluder2D.occlu/
 

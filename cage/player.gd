@@ -1,11 +1,9 @@
 extends Node2D
-class_name Tile
+class_name Player
 
-var x = 0
-var y = 0
-var on_board: bool # true => on board, false => in stack
-var face_down: bool
-var type: Common.TileType
+var player_num: int
+var placed_start: bool
+var nerve: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,8 +1,10 @@
 extends Node2D
 class_name Player
 
-var x: int
-var y: int
+var x: float
+var y: float
+var goal_x: float
+var goal_y: float
 var items = []
 
 # Called when the node enters the scene tree for the first time.
@@ -12,6 +14,9 @@ func _ready() -> void:
 	$Sprite2D.texture = texture
 	
 	z_index = 2
+	
+	goal_x = x
+	goal_y = y
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

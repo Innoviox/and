@@ -77,8 +77,8 @@ func move_player(dir: Vector2) -> bool:
 	if newY < tiles.size() and newX < tiles[newY].size():
 		var item = item_at(newX, newY)
 		if tiles[newY][newX].walkable(player) or (item != null and item.walkable(player)):
-			player.x += dir.x
-			player.y += dir.y
+			player.goal_x += dir.x
+			player.goal_y += dir.y
 			
 			item_check()
 			update_lights()
@@ -145,5 +145,9 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	print("goal x ", player.goal_x, " x ", player.x)
+	if player.goal_x != player.x:
+		player.x += -0.1 if player.goal_x < player.x else 0.1
+	if player.goal_y != player.y:
+		player.y += -0.1 if player.goal_y < player.y else 0.1
  

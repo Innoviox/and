@@ -28,6 +28,9 @@ func _ready() -> void:
 			tiles.append(tile)
 	
 	tiles.shuffle()
+	
+func pop() -> Tile:
+	return tiles.pop_front()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

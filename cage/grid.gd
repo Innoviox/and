@@ -13,7 +13,7 @@ func _ready() -> void:
 			row.append(null)
 		tiles.append(row)
 		
-func set_possible():
+func set_possible(x: int, y: int):
 	pass
 	
 func set_all_possible():
@@ -21,6 +21,8 @@ func set_all_possible():
 		for j in range(5):
 			possible.append(Vector2(i, j))
 
+func get_possible() -> Array:
+	return possible.duplicate()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

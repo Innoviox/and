@@ -90,9 +90,10 @@ func board_clicked(x: int, y: int):
 	# get the current player
 	var player = players[current_player]
 	if current_tile.type != Common.TileType.NONE: # case 1
-		grid.place_tile(x, y, current_tile.type, current_tile.rot) # 1a1 OR 1b1
+		grid.place_tile(x, y, current_tile) # 1a1 OR 1b1
 		if current_tile.type == Common.TileType.START: # case 1a
 			player.set_position(x, y) # 1a2
+			grid.revealed_needs_recalc = true
 			player.placed_start = true
 			start_revealing()
 		else:
@@ -102,6 +103,7 @@ func board_clicked(x: int, y: int):
 	elif player_moving:
 		# todo flip pit if you moved off of one
 		player.set_position(x, y)
+		grid.revealed_needs_recalc = true
 		kill_unilluminated()
 		start_revealing()
 	
@@ -133,7 +135,7 @@ func kill_unilluminated():
 	
 	for tile in existing:
 		if not revealed.has(tile):
-			grid.kill(tile[0], tile[1])
+			grid.kill(tile.x, tile.y)
 	
 
 

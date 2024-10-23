@@ -22,3 +22,6 @@ static func make_start_tile() -> Tile:
 	tile.type = TileType.START
 	
 	return tile
+
+static func clamp(pos: Vector2) -> Vector2:
+	return Vector2(pos.x % 5, pos.y % 5)

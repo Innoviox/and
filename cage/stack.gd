@@ -24,6 +24,7 @@ func _ready() -> void:
 			tile.on_board = false
 			tile.face_down = true
 			tile.type = tile_type
+			tile.crumbling = [Common.TileType.KEY, Common.TileType.STRAIGHT, Common.TileType.START].has(tile_type)
 			
 			tiles.append(tile)
 	

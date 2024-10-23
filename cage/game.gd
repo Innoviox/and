@@ -102,6 +102,11 @@ func board_clicked(x: int, y: int):
 			continue_revealing()
 	elif player_moving:
 		# todo flip pit if you moved off of one
+		var tile = grid.get_tile(player.x, player.y)
+		if tile.crumbling:
+			pass
+		
+		# set new position and update state
 		player.set_position(x, y)
 		grid.revealed_needs_recalc = true
 		kill_unilluminated()
